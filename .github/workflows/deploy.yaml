@@ -1,0 +1,26 @@
+name: Deploy Node.js Application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy Via SSH
+      uses: applyboy/ssh-action@v2.3.4
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        scripts: |
+          cd /home/sonish/nodejs-application-deploy-github-actions
+          git pull origin master
+          sudo docker-compose up -d --build
+          
