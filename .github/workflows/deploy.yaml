@@ -17,4 +17,4 @@ jobs:
         run: |
           cd /home/sonish/nodejs-application-deploy-github-actions
           git pull origin master
-          docker-compose up -d --build
+          docker compose up -d --build
